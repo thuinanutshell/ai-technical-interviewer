@@ -76,6 +76,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 | Audio Recording & Transcription | 🔥🔥🔥 | Core to simulating interviews because the key focus here is to let the users **practice thinking out loud in a structured way** |
 | PDF Parsing                | 🔥🔥🔥 | Enables resume-based behavioral questions because the system needs a **context** to generate a list of appropriate questions |
 | AI Conversation            | 🔥🔥🔥 | Enables dynamic mock interview with a **two-way** interaction |
+| Code Editor           | 🔥🔥🔥 | Enables **code editor-like** to type out the implementation |
 | Follow-up Questions        | 🔥🔥   | Adds realism and depth |
 | Analytics                  | 🔥🔥   | Tracks user progress |
 | Text-to-Speech             | 🔥     | AI Interviewer speaks like humans instead of just returning text|
@@ -88,6 +89,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 | STT - Audio Recording & Transcription | MediaStream Recording API, OpenAI Whisper API | The first API can be used to record audio in the browser, and the second API is used to transcribe the audio into text.|
 | PDF Parsing                | PDF.js, Gemini API (with built-in feature for PDF parsing), PyMuPDF| Both can read and parse PDF into text ready to be used in the AI's context, but if I use Gemini API, it will cost towards the number of tokens used |
 | AI Conversation            | Gemini API, Claude API | Enables dynamic mock interview |
+| Code Editor           | CodeMirror | Enables **code editor-like** to type out the implementation |
 | Follow-up Questions        | Gemini API, Claude API   | Adds realism and depth |
 | Analytics                  | Rechart.js   | Tracks user progress by providing some data visualizations |
 | TTS - Text-to-Speech       | ElevenLabs API   | AI Interviewer speaks like humans instead of just returning text only |
