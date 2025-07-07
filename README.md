@@ -20,9 +20,7 @@ Ava is an AI-powered mock technical interviewer that helps job seekers practice 
 
 ### Problem Statement
 
-Interview prep is one of the most important parts of the job application process. Preparing alone can feel isolating, and finding the right accountability partner is often challenging.
-
-**Ava** is a mock AI interviewer designed to simulate real interviews and provide users with a structured environment to think out loud and receive instant feedback.
+Interview prep is one of the most important parts of the job application process. Preparing alone can feel isolating, and finding the right accountability partner is often challenging. **Ava** is a mock AI interviewer designed to simulate real interviews and provide users with a structured environment to think out loud and receive instant feedback.
 
 ### Lofi Mockup
 
@@ -48,10 +46,10 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 ##### Coding Mode Flow
 
 1. User selects a topic (e.g., Trees, DP)
-2. Random question is displayed
-3. User starts timer
+2. A random question is displayed
+3. User starts the timer
 4. User records answer for each UMPIRE step
-5. System transcribes answer and gives AI feedback
+5. System transcribes the answer and gives AI feedback
 6. Final feedback is provided based on performance
 
 ---
@@ -63,7 +61,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 ##### Behavioral Mode Flow
 
 1. User uploads resume (PDF)
-2. System parses it to create context
+2. The system parses it to create context
 3. AI generates personalized questions
 4. User records responses
 5. AI transcribes and asks up to 2 follow-up questions
@@ -80,9 +78,20 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 | AI Conversation            | 🔥🔥🔥 | Enables dynamic mock interview |
 | Follow-up Questions        | 🔥🔥   | Adds realism and depth |
 | Analytics                  | 🔥🔥   | Tracks user progress |
+| Text-to-Speech             | 🔥   | AI Interviewer speaks like humans instead of just returning text|
 | Timer                      | 🔥     | Simulates real interview pressure |
 | Authentication             | 🔥     | Required for account setup |
 
+### Technical Research
+| Feature                     | Technology | Notes |
+|----------------------------|-------------|--------|
+| STT - Audio Recording & Transcription | MediaStream Recording API, OpenAI Whisper API, Amazon Transcribe | The first API can be used to record audio in the browser, and the second API is used to transcribe the audio into text.|
+| PDF Parsing                | PDF.js, Gemini API (with built-in feature for PDF parsing), PyMuPDF| Both can read and parse PDF into text ready to be used in the AI's context, but if I use Gemini API, it will cost towards the number of tokens used |
+| AI Conversation            | Gemini API, Claude API | Enables dynamic mock interview |
+| Follow-up Questions        | Gemini API, Claude API   | Adds realism and depth |
+| Analytics                  | Rechart.js   | Tracks user progress by providing some data visualizations |
+| TTS - Text-to-Speech       | ElevenLabs API   | AI Interviewer speaks like humans instead of just returning text only |
+| Authentication             | Supabase     | Required for account setup |
 ---
 
 ## Day 2: Database Design & Pseudocode
