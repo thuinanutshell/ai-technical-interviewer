@@ -41,7 +41,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 5. **Review** – Walk through the code with test cases.
 6. **Evaluate** – Analyze time/space complexity and tradeoffs.
 
-![image](https://github.com/user-attachments/assets/55ecdd07-6a17-4d0f-8e00-2ad9c7e84639)
+![image](https://github.com/user-attachments/assets/b63e255a-46ea-4c14-b5dd-b00d105e6f9f)
 
 ##### Coding Mode Flow
 
@@ -56,7 +56,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 
 #### Behavioral Mode
 
-![image](https://github.com/user-attachments/assets/88f939e8-c5e1-463a-95f5-b1411b6f97ad)
+![image](https://github.com/user-attachments/assets/3f835add-60a9-4a2f-af4e-4356b2fb1dda)
 
 ##### Behavioral Mode Flow
 
@@ -73,25 +73,33 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 
 | Feature                     | Priority | Reason |
 |----------------------------|-------------|--------|
-| Audio Recording & Transcription | 🔥🔥🔥 | Core to simulating interviews |
-| PDF Parsing                | 🔥🔥🔥 | Enables resume-based behavioral questions |
-| AI Conversation            | 🔥🔥🔥 | Enables dynamic mock interview |
+| Audio Recording & Transcription | 🔥🔥🔥 | Core to simulating interviews because the key focus here is to let the users **practice thinking out loud in a structured way** |
+| PDF Parsing                | 🔥🔥🔥 | Enables resume-based behavioral questions because the system needs a **context** to generate a list of appropriate questions |
+| AI Conversation            | 🔥🔥🔥 | Enables dynamic mock interview with a **two-way** interaction |
 | Follow-up Questions        | 🔥🔥   | Adds realism and depth |
 | Analytics                  | 🔥🔥   | Tracks user progress |
-| Text-to-Speech             | 🔥   | AI Interviewer speaks like humans instead of just returning text|
+| Text-to-Speech             | 🔥     | AI Interviewer speaks like humans instead of just returning text|
 | Timer                      | 🔥     | Simulates real interview pressure |
 | Authentication             | 🔥     | Required for account setup |
 
 ### Technical Research
 | Feature                     | Technology | Notes |
 |----------------------------|-------------|--------|
-| STT - Audio Recording & Transcription | MediaStream Recording API, OpenAI Whisper API, Amazon Transcribe | The first API can be used to record audio in the browser, and the second API is used to transcribe the audio into text.|
+| STT - Audio Recording & Transcription | MediaStream Recording API, OpenAI Whisper API | The first API can be used to record audio in the browser, and the second API is used to transcribe the audio into text.|
 | PDF Parsing                | PDF.js, Gemini API (with built-in feature for PDF parsing), PyMuPDF| Both can read and parse PDF into text ready to be used in the AI's context, but if I use Gemini API, it will cost towards the number of tokens used |
 | AI Conversation            | Gemini API, Claude API | Enables dynamic mock interview |
 | Follow-up Questions        | Gemini API, Claude API   | Adds realism and depth |
 | Analytics                  | Rechart.js   | Tracks user progress by providing some data visualizations |
 | TTS - Text-to-Speech       | ElevenLabs API   | AI Interviewer speaks like humans instead of just returning text only |
 | Authentication             | Supabase     | Required for account setup |
+
+### Next Steps
+- [ ] Check the MediaStream Recording API doc and learn to set it up properly
+- [ ] Check OpenAI Whisper API and its configuration
+- [ ] Try different PDF parsing libraries and decide on which performs best for the app's use cases
+- [ ] Simulate a short conversation using the Gemini API
+- [ ] Set up ElevenLabs API to gauge how difficult it is to incorporate it into the app
+- [ ] Re-check how to set up authentication with Supabase
 ---
 
 ## Day 2: Database Design & Pseudocode
@@ -106,7 +114,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 
 ### Authentication Setup
 
-- Setup using Firebase/Auth0 or custom JWT-based solution
+- Setup using Supabase/Auth0 or a custom JWT-based solution
 - Session flow with refresh tokens (if applicable)
 
 ---
