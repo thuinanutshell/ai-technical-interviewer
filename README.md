@@ -109,10 +109,18 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 ### Database Design
 For the first version of this app, I had to make a decision between complexity and storage. The part that got me thinking is that: *Do I really need to store the audio files from the users?* My reasoning is that 
 
-1. Saved audio files are not of significant importance because the what matters is that the user can receives the assessment of their performance after a mock interview session and suggestions on how to improve the next time. One might argue that if the user needs to review the audio of themselves later or re-run the analysis. But as someone whose main focus is to practice **thinking out loud in a structure** way, reviewing audio is way less important than having a functional space to do as many practice as possible.
-2. Saved audio files cost more storage while the value per storage is not high, unless the key feedback is to use the data to train some models, which is not the case here.
+1. Saved audio files are not of significant importance because what matters is that the user can receive the assessment of their performance after a mock interview session and suggestions on how to improve the next time. One might argue that if the user needs to review the audio of themselves later, or re-run the analysis. But as someone whose main focus is to practice **thinking out loud in a structured** way, reviewing audio is way less important than having a functional space to do as much practice as possible.
+2. Saved audio files cost more storage, while the value per storage is not high, unless the key feedback is to use the data to train some models, which is not the case here.
 
-As a result, my final database schema design is shown below, which I believes strike a balance between simplicity and functionality.
+As a result, my final database schema design is shown below, which I believe strikes a balance between simplicity and functionality with the following tables:
+- **User**: stores basic user personal information
+- **Question**: a question bank that stores all questions (both coding and behavioral) - the type field indicates whether the question is behavioral, tree, dynamic programming, etc.
+- **Resume**: a simple table to store a user's resume data
+- **Session**: stores a complete mock interview session for a user that includes the initial context (coding question description or parsed resume data)
+- **Message**: stores the conversation between the user and the AI system
+- **Feedback**: stores the feedback for the session as a whole
+
+<img width="1115" alt="Screenshot 2025-07-08 at 9 54 49 AM" src="https://github.com/user-attachments/assets/1b3e83bf-b643-4d4c-8ed3-702d774423f6" />
 
 
 ### Structure & Pseudocode for Backend & Frontend
