@@ -47,9 +47,9 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 
 1. User selects a topic (e.g., Trees, DP)
 2. A random question is displayed
-3. User starts the timer
+3. The user starts the timer
 4. User records answer for each UMPIRE step
-5. System transcribes the answer and gives AI feedback
+5. The system transcribes the answer and gives AI feedback
 6. Final feedback is provided based on performance
 
 ---
@@ -121,6 +121,14 @@ As a result, my final database schema design is shown below, which I believe str
 
 ### Structure & Pseudocode for Backend & Frontend
 #### Tech Stack
+| Layer          | Tech                                 | Reason                                                                                                 |
+| -------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| **Backend**    | FastAPI                              | Lightweight, async-friendly, production-ready. I had extensive experience with Flask before, so I want to try something similar.|
+| **Frontend**   | Next.js                              | Hybrid SSR/SPA; pairs well with Vercel and Supabase Auth out of the box.|
+| **Auth**       | Supabase Auth                        | Simple to set up, good support for email/password and OAuth; tightly integrates with Next.js.|
+| **Database**   | Supabase DB (PostgreSQL)             | Simplify the process of setting up the database|
+| **Deployment** | Railway (backend), Vercel (frontend) | Simple, scalable, CI/CD-friendly.|
+
 #### Backend
 #### Frontend
 ---
