@@ -113,12 +113,15 @@ For the first version of this app, I had to make a decision between complexity a
 2. Saved audio files cost more storage, while the value per storage is not high, unless the key feedback is to use the data to train some models, which is not the case here.
 
 As a result, my final database schema design is shown below, which I believe strikes a balance between simplicity and functionality with the following tables:
-- **User**: stores basic user personal information
-- **Question**: a question bank that stores all questions (both coding and behavioral) - the type field indicates whether the question is behavioral, tree, dynamic programming, etc.
-- **Resume**: a simple table to store a user's resume data
-- **Session**: stores a complete mock interview session for a user that includes the initial context (coding question description or parsed resume data)
-- **Message**: stores the conversation between the user and the AI system
-- **Feedback**: stores the feedback for the session as a whole
+| Table     | Description                                                                                         |
+|-----------|-----------------------------------------------------------------------------------------------------|
+| **User**  | Stores basic user personal information                                                              |
+| **Question** | A question bank that stores all questions (both coding and behavioral). The `type` field indicates whether the question is behavioral, tree, dynamic programming, etc. |
+| **Resume** | A simple table to store a user's resume data                                                       |
+| **Session** | Stores a complete mock interview session for a user that includes the initial context (coding question description or parsed resume data) |
+| **Message** | Stores the conversation between the user and the AI system                                        |
+| **Feedback** | Stores the feedback for the session as a whole                                                   |
+
 
 <img width="1115" alt="Screenshot 2025-07-08 at 9 54 49 AM" src="https://github.com/user-attachments/assets/1b3e83bf-b643-4d4c-8ed3-702d774423f6" />
 
