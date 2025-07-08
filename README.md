@@ -22,14 +22,6 @@ Ava is an AI-powered mock technical interviewer that helps job seekers practice 
 
 Interview prep is one of the most important parts of the job application process. Preparing alone can feel isolating, and finding the right accountability partner is often challenging. **Ava** is a mock AI interviewer designed to simulate real interviews and provide users with a structured environment to think out loud and receive instant feedback.
 
-## Lofi Mockup
-
-The app has two primary interview modes: **Coding** and **Behavioral**.
-
-![image](https://github.com/user-attachments/assets/4604cd04-4462-4457-b8a0-2b2ec7e15328)
-
----
-
 ### Coding Mode
 
 In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/compsci/UMPIRE-Interview-Strategy):
@@ -149,12 +141,64 @@ As a result, my final database schema design is shown below, which I believe str
 | Get a specific question              | `GET`                  | `/questions/{question_id}`        | Fetch one question by ID                                                     |
 | Delete a question                    | `DELETE`               | `/questions/{question_id}`        | Remove a question (admin or owner only)                                      |
 
-
-
-
 ### Frontend 
----
+## Lofi Mockup
 
+The app has two primary interview modes: **Coding** and **Behavioral**.
+
+![image](https://github.com/user-attachments/assets/4604cd04-4462-4457-b8a0-2b2ec7e15328)
+
+## Next.js App Structure
+```
+/frontend
+│
+├── app/                      # Next.js app directory (App Router)
+│   ├── page.jsx              # Landing page or redirect to dashboard
+│   │
+│   ├── auth/                 # Auth routes
+│   │   ├── login/page.jsx    # Login form page
+│   │   └── register/page.jsx # Register form page
+│   │
+│   ├── dashboard/            # Authenticated main dashboard
+│   │   ├── layout.jsx        # Shared layout for dashboard pages
+│   │   └── page.jsx          # Main interview session launcher
+│   │
+│   ├── session/              # Dynamic session pages
+│      └── [id]/page.jsx     # Multi-turn interview session (chat, code, feedback)
+|
+├── components/               # Reusable UI components
+│   ├── ChatBox.jsx           # Chat UI for user-AI conversation
+│   ├── CodeEditor.jsx        # Embedded code editor
+│   ├── Feedback.jsx          # Final feedback display
+│   ├── QuestionDisplay.jsx   # Displays current question
+│   ├── CreateQuestionModal.jsx # Modal to create a new question
+│   ├── AudioRecorder.jsx     # Audio recording component using MediaStream API
+│   ├── LoadingSpinner.jsx    # Generic loading spinner
+│   └── ErrorMessage.jsx      # Generic error display
+│
+├── hooks/                    # Custom React hooks
+│   ├── useSession.js         # Manage session state, question progress
+│   ├── useChat.js            # Manages chat messages (user/system turns)
+│   └── useAudioRecorder.js   # Handles MediaStream Recording logic
+│
+├── lib/                      # API utility functions and helpers
+│   ├── api.js                # Functions to call FastAPI backend routes
+│   └── supabaseClient.js     # Supabase config & instance
+│
+├── styles/                   # Global styles and Tailwind config
+│   └── globals.css
+│
+├── public/                   # Static files (logo, icons, etc.)
+│
+├── .env.local                # API keys, Supabase credentials
+├── tailwind.config.js
+├── postcss.config.js
+├── package.json
+└── README.md
+
+```
+
+---
 ## Day 3: Feature: Audio Transcription & PDF Parsing
 
 - Integrate Whisper (or another model) for transcription
