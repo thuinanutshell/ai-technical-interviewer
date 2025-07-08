@@ -95,13 +95,6 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 | TTS - Text-to-Speech       | ElevenLabs API   | AI Interviewer speaks like humans instead of just returning text only |
 | Authentication             | Supabase     | Required for account setup |
 
-### Next Steps
-- [ ] Check the MediaStream Recording API doc and learn to set it up properly
-- [ ] Check OpenAI Whisper API and its configuration
-- [ ] Try different PDF parsing libraries and decide on which performs best for the app's use cases
-- [ ] Simulate a short conversation using the Gemini API
-- [ ] Set up ElevenLabs API to gauge how difficult it is to incorporate it into the app
-- [ ] Re-check how to set up authentication with Supabase
 ---
 
 ## Day 2: Database Design & Pseudocode
@@ -127,14 +120,9 @@ As a result, my final database schema design is shown below, which I believe str
 
 
 ### Structure & Pseudocode for Backend & Frontend
-
-*(High-level plan for organizing API routes, React components, etc.)*
-
-### Authentication Setup
-
-- Setup using Supabase/Auth0 or a custom JWT-based solution
-- Session flow with refresh tokens (if applicable)
-
+#### Tech Stack
+#### Backend
+#### Frontend
 ---
 
 ## Day 3: Feature: Audio Transcription & PDF Parsing
@@ -142,6 +130,9 @@ As a result, my final database schema design is shown below, which I believe str
 - Integrate Whisper (or another model) for transcription
 - Use `pdfplumber`, `PyMuPDF`, or third-party API for resume parsing
 - Normalize parsed content for embedding/context
+
+### Demo
+### Tests
 
 ---
 
@@ -151,6 +142,9 @@ As a result, my final database schema design is shown below, which I believe str
 - Memory chain to store context (e.g., LangChain)
 - Rule-based or confidence-threshold triggers for follow-up
 
+### Demo
+### Tests
+
 ---
 
 ## Day 5: Feature: Analytics (If Time Permits)
@@ -158,13 +152,16 @@ As a result, my final database schema design is shown below, which I believe str
 - Track completion, AI ratings, time per question, weak areas
 - Visualize via simple dashboard (e.g., Recharts or Chart.js)
 
+### Demo
+### Tests
+
 ---
 
 ## Day 6: CI/CD & Deployment
 
 - GitHub Actions for test + lint checks
-- Deploy backend (e.g., Vercel, Fly.io, or Render)
-- Deploy frontend (e.g., Netlify or Vercel)
+- Deploy backend (Railway)
+- Deploy frontend (Vercel)
 - Use `.env` for secrets + environment configs
 
 ---
