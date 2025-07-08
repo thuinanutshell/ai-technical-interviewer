@@ -132,20 +132,23 @@ As a result, my final database schema design is shown below, which I believe str
 ![image](https://github.com/user-attachments/assets/04229f23-8891-4632-ab48-dc6a676f8cc2)
 
 ### Backend
-| Route         | Method                                 | Explanation                                                                                                |
-| -------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| `/start-session`    | POST | Creates a session with initial context (resume or coding question) |
-| `/submit-answer`    | POST| Uploads audio blob (from client) to backend for processing (temporary storage) |
-| `/transcribe-answer` | POST | Transcribes uploaded audio (using Whisper) and stores as a new Message (role: "user") |
-| `/respond`    | POST| Uses conversation history to generate and store system response (role: "system")|
-| `/final-feedback`    | POST| Generates and saves final feedback for session (tone, pace, overall, etc.)|
-| `/resume/upload`    | POST | Upload resume file (PDF) |
-| `/parse_resume`    | POST | The server parses the uploaded resume from the user |
-| `/questions`    | POST | Create a new custom question (description + type) |
-| `/generate-questions`    | POST | Generates a list of questions based on parsed resume (and optionally stores to session) |
-| `/sessions/{id}`    | GET | Fetch session data (e.g. when resuming or reviewing past sessions) |
-| `/sessions/{id}/messages`    | GET | Get all messages in a session (for rendering chat UI on frontend) |
-| `/feedback/{session_id}`    | GET| Retrieve final feedback|
+| **Action**                           | **Method**             | **Route**                         | **Description**                                                              |
+| ------------------------------------ | ---------------------- | --------------------------------- | ---------------------------------------------------------------------------- |
+| Create a new interview session       | `POST`                 | `/sessions`                       | Starts a new session (e.g. after selecting a question or uploading a resume) |
+| Get session details                  | `GET`                  | `/sessions/{session_id}`          | Fetch a specific session’s metadata, messages, etc.                          |
+| Submit a user answer (audio)         | `POST`                 | `/sessions/{session_id}/messages` | Adds a new message from the user (with audio blob) to the session            |
+| Respond with system feedback         | `POST`                 | `/sessions/{session_id}/messages` | Same route: system's follow-up is added as another message                   |
+| Get full conversation history        | `GET`                  | `/sessions/{session_id}/messages` | Returns the list of user + system messages                                   |
+| Generate final feedback for session  | `POST`                 | `/sessions/{session_id}/feedback` | Generates and stores tone summary, speech rate, overall evaluation           |
+| Get feedback for session             | `GET`                  | `/sessions/{session_id}/feedback` | Retrieve saved feedback (for review or display)                              |
+| Upload & parse resume                | `POST`                 | `/resumes`                        | Upload resume (PDF), parse it on server, store parsed data                   |
+| Get parsed resume for user           | `GET`                  | `/resumes/user/{user_id}`         | Retrieve a user’s uploaded resumes                                           |
+| Generate questions based on resume   | `POST`                 | `/questions/generated`            | Dynamically generate questions from a parsed resume                          |
+| Create a new custom question         | `POST`                 | `/questions`                      | Add a manual question (coding or behavioral) to the question bank            |
+| Get all questions                    | `GET`                  | `/questions`                      | Retrieve question bank (optionally filtered by type or user)                 |
+| Get a specific question              | `GET`                  | `/questions/{question_id}`        | Fetch one question by ID                                                     |
+| Delete a question                    | `DELETE`               | `/questions/{question_id}`        | Remove a question (admin or owner only)                                      |
+
 
 
 
