@@ -107,8 +107,13 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 ## Day 2: Database Design & Pseudocode
 
 ### Database Design
+For the first version of this app, I had to make a decision between complexity and storage. The part that got me thinking is that: *Do I really need to store the audio files from the users?* My reasoning is that 
 
-*(To be added: ER diagrams, schemas, etc.)*
+1. Saved audio files are not of significant importance because the what matters is that the user can receives the assessment of their performance after a mock interview session and suggestions on how to improve the next time. One might argue that if the user needs to review the audio of themselves later or re-run the analysis. But as someone whose main focus is to practice **thinking out loud in a structure** way, reviewing audio is way less important than having a functional space to do as many practice as possible.
+2. Saved audio files cost more storage while the value per storage is not high, unless the key feedback is to use the data to train some models, which is not the case here.
+
+As a result, my final database schema design is shown below, which I believes strike a balance between simplicity and functionality.
+
 
 ### Structure & Pseudocode for Backend & Frontend
 
