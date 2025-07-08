@@ -142,13 +142,13 @@ As a result, my final database schema design is shown below, which I believe str
 | Delete a question                    | `DELETE`               | `/questions/{question_id}`        | Remove a question (admin or owner only)                                      |
 
 ### Frontend 
-## Lofi Mockup
+#### Lofi Mockup
 
 The app has two primary interview modes: **Coding** and **Behavioral**.
 
 ![image](https://github.com/user-attachments/assets/4604cd04-4462-4457-b8a0-2b2ec7e15328)
 
-## Next.js App Structure
+#### Next.js App Structure
 ```
 /frontend
 │
