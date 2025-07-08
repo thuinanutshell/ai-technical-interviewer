@@ -16,13 +16,13 @@ Ava is an AI-powered mock technical interviewer that helps job seekers practice 
 
 ---
 
-## Day 1: User Flow & Research
+# Day 1: User Flow & Research
 
-### Problem Statement
+## Problem Statement
 
 Interview prep is one of the most important parts of the job application process. Preparing alone can feel isolating, and finding the right accountability partner is often challenging. **Ava** is a mock AI interviewer designed to simulate real interviews and provide users with a structured environment to think out loud and receive instant feedback.
 
-### Lofi Mockup
+## Lofi Mockup
 
 The app has two primary interview modes: **Coding** and **Behavioral**.
 
@@ -30,7 +30,7 @@ The app has two primary interview modes: **Coding** and **Behavioral**.
 
 ---
 
-#### Coding Mode
+### Coding Mode
 
 In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/compsci/UMPIRE-Interview-Strategy):
 
@@ -43,7 +43,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 
 ![image](https://github.com/user-attachments/assets/b63e255a-46ea-4c14-b5dd-b00d105e6f9f)
 
-##### Coding Mode Flow
+#### Coding Mode Flow
 
 1. User selects a topic (e.g., Trees, DP)
 2. A random question is displayed
@@ -54,11 +54,11 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 
 ---
 
-#### Behavioral Mode
+### Behavioral Mode
 
 ![image](https://github.com/user-attachments/assets/3f835add-60a9-4a2f-af4e-4356b2fb1dda)
 
-##### Behavioral Mode Flow
+#### Behavioral Mode Flow
 
 1. User uploads resume (PDF)
 2. The system parses it to create context
@@ -69,7 +69,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 
 ---
 
-### Feature Prioritization
+## Feature Prioritization
 
 | Feature                     | Priority | Reason |
 |----------------------------|-------------|--------|
@@ -83,7 +83,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 | Timer                      | 🔥     | Simulates real interview pressure |
 | Authentication             | 🔥     | Required for account setup |
 
-### Technical Research
+## Technical Research
 | Feature                     | Technology | Notes |
 |----------------------------|-------------|--------|
 | STT - Audio Recording & Transcription | MediaStream Recording API, OpenAI Whisper API | The first API can be used to record audio in the browser, and the second API is used to transcribe the audio into text.|
@@ -97,7 +97,7 @@ In Coding Mode, users follow the [UMPIRE framework](https://guides.codepath.com/
 
 ---
 
-## Day 2: Database Design & Pseudocode
+# Day 2: Database Design & Pseudocode
 
 ### Database Design
 For the first version of this app, I had to make a decision between complexity and storage. The part that got me thinking is that: *Do I really need to store the audio files from the users?* My reasoning is that 
@@ -119,8 +119,8 @@ As a result, my final database schema design is shown below, which I believe str
 <img width="1115" alt="Screenshot 2025-07-08 at 9 54 49 AM" src="https://github.com/user-attachments/assets/1b3e83bf-b643-4d4c-8ed3-702d774423f6" />
 
 
-### Structure & Pseudocode for Backend & Frontend
-#### Tech Stack
+## Structure & Pseudocode for Backend & Frontend
+### Tech Stack
 | Layer          | Tech                                 | Reason                                                                                                 |
 | -------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | **Backend**    | FastAPI                              | Lightweight, async-friendly, production-ready. I had extensive experience with Flask before, so I want to try something similar.|
@@ -129,8 +129,27 @@ As a result, my final database schema design is shown below, which I believe str
 | **Database**   | Supabase DB (PostgreSQL)             | Simplify the process of setting up the database|
 | **Deployment** | Railway (backend), Vercel (frontend) | Simple, scalable, CI/CD-friendly.|
 
-#### Backend
-#### Frontend
+![image](https://github.com/user-attachments/assets/04229f23-8891-4632-ab48-dc6a676f8cc2)
+
+### Backend
+| Route         | Method                                 | Explanation                                                                                                |
+| -------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `/start-session`    | POST | Creates a session with initial context (resume or coding question) |
+| `/submit-answer`    | POST| Uploads audio blob (from client) to backend for processing (temporary storage) |
+| `/transcribe-answer` | POST | Transcribes uploaded audio (using Whisper) and stores as a new Message (role: "user") |
+| `/respond`    | POST| Uses conversation history to generate and store system response (role: "system")|
+| `/final-feedback`    | POST| Generates and saves final feedback for session (tone, pace, overall, etc.)|
+| `/resume/upload`    | POST | Upload resume file (PDF) |
+| `/parse_resume`    | POST | The server parses the uploaded resume from the user |
+| `/questions`    | POST | Create a new custom question (description + type) |
+| `/generate-questions`    | POST | Generates a list of questions based on parsed resume (and optionally stores to session) |
+| `/sessions/{id}`    | GET | Fetch session data (e.g. when resuming or reviewing past sessions) |
+| `/sessions/{id}/messages`    | GET | Get all messages in a session (for rendering chat UI on frontend) |
+| `/feedback/{session_id}`    | GET| Retrieve final feedback|
+
+
+
+### Frontend 
 ---
 
 ## Day 3: Feature: Audio Transcription & PDF Parsing
