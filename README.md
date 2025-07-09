@@ -22,9 +22,9 @@ Ava is an AI-powered mock technical interviewer that helps job seekers practice 
 
 1. [Day 1: User Flow & Research](#day-1-user-flow--research)
 2. [Day 2: Database Design & Pseudocode](#day-2-database-design--pseudocode)
-3. [Day 3: Feature: Authentication & Audio Transcription & PDF Parsing](#day-3-feature-authentication--audio-transcription--pdf-parsing)
-4. [Day 4: Feature: AI Conversation & Follow-up Questions](#day-4-feature-ai-conversation--follow-up-questions)
-5. [Day 5: Feature: Analytics (If Time Permits)](#day-5-feature-analytics-if-time-permits)
+3. [Day 3: Feature: Authentication](#day-3-feature-authentication)
+4. [Day 4: Feature: Audio Transcription & PDF Parsing](#day-4-feature-audio-transcription--pdf-parsing)
+5. [Day 5: Feature: AI Conversation](#day-5-feature-ai-conversation)
 6. [Day 6: CI/CD & Deployment](#day-6-cicd--deployment)
 7. [Day 7: Documentation](#day-7-documentation)
 
@@ -259,18 +259,49 @@ The app has two primary interview modes: **Coding** and **Behavioral**.
 ```
 
 ---
-## Day 3: Feature: Authentication & Audio Transcription & PDF Parsing
+## Day 3: Feature: Authentication
+The structure below shows my progress so far. There are some modifications compared to what I planned yesterday. Because I'm new to FastAPI (I have more experience with Flask), I rely on the [fullstack template provided by FastAPI](https://github.com/fastapi/full-stack-fastapi-template/tree/master/backend) to structure my folder. I made some modifications that meet my needs and level. 
 
-- Integrate Whisper (or another model) for transcription
-- Use `pdfplumber`, `PyMuPDF`, or third-party API for resume parsing
-- Normalize parsed content for embedding/context
+Currently, when tested with SwaggerUI, the registration, login, and logout endpoints work. This is also the first time I used `Pydantic` for data validation. I also successfully connected the backend with the Postgres connector using `Supabase`. For the next steps, I want to modify the config file to set up 3 different environments: `testing`, `development`, and `production`. I'm thinking of using a local database for the testing environment, and one Supabase database for development and one Supabase database for production. 
 
-### Demo
-### Tests
+I think I underestimated how long it took to write code that I actually understand. This took me around 3 hours to write code, read the code template to understand what's going on, and think about how to structure the code best to make it functional yet focused and simple. Here's what I've learned today:
+- When defining Pydantic models, I need to define the input that the server is expected to receive from the client and the output that is sent from the server to the client
+- Before running the app, we need a file to initialize/populate the database (create all tables), and this file should be separate instead of being put inside the main file to avoid the database being recreated every time at app startup.
+```
+backend/
+│
+├── app/                             # Main application package
+│   ├── __init__.py
+│   ├── main.py                      # Entry point for FastAPI app
+│   │
+│   ├── api/                         # API route definitions
+│   |   ├── routes/                  # API route definitions
+│   |      ├── __init__.py                  
+│   |      ├── auth.py               # auth-related routes definitions
+│   │   ├── __init__.py
+│   │   ├── deps.py                  # dependencies
+│   │   ├── main.py                  # all routes
+│   │
+│   ├── models/                      # Pydantic models for request/response validation
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │
+│   ├── services/                    # Business logic
+│   │   ├── __init__.py
+│   │   ├── crud.py                  # create and get user
+│   │
+│   ├── core/                        # Settings, dependencies, utils
+│   │   ├── config.py                # Environment & app configs
+│   │   ├── security.py              # JWT, password hashing (bcrypt)
+│   │   └── db.py                    
+│
+├── requirements.txt                 # Python dependencies
+├── .env                             # Environment variables
+```
 
 ---
 
-## Day 4: Feature: AI Conversation & Follow-up Questions
+## Day 4: Feature: Audio Transcription & PDF Parsing
 
 - Use OpenAI/Gemma with structured prompts
 - Memory chain to store context (e.g., LangChain)
@@ -281,7 +312,7 @@ The app has two primary interview modes: **Coding** and **Behavioral**.
 
 ---
 
-## Day 5: Feature: Analytics (If Time Permits)
+## Day 5: AI Conversation
 
 - Track completion, AI ratings, time per question, weak areas
 - Visualize via simple dashboard (e.g., Recharts or Chart.js)
