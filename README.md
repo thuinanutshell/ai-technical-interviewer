@@ -8,6 +8,7 @@ Ava is an AI-powered mock technical interviewer that helps job seekers practice 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+
 ![OpenAI Whisper](https://img.shields.io/badge/OpenAI%20Whisper-412991?style=for-the-badge&logo=openai&logoColor=white)
 ![Gemini API](https://img.shields.io/badge/Gemini%20API-4285F4?style=for-the-badge&logo=google&logoColor=white)
 ![Railway](https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)
@@ -156,56 +157,62 @@ As a result, my final database schema design is shown below, which I believe str
 
 The app has two primary interview modes: **Coding** and **Behavioral**.
 
-![image](https://github.com/user-attachments/assets/4604cd04-4462-4457-b8a0-2b2ec7e15328)
+![image](https://github.com/user-attachments/assets/b7436152-97bc-4bc6-9460-e48b75eb2cd6)
 
 #### Next.js App Structure
 ```
 /frontend
 │
-├── app/                      # Next.js app directory (App Router)
-│   ├── page.jsx              # Landing page or redirect to dashboard
+├── app/                      # App router structure (Next.js 13+)
+│   ├── page.jsx              # Landing or redirect to dashboard
 │   │
-│   ├── auth/                 # Auth routes
-│   │   ├── login/page.jsx    # Login form page
-│   │   └── register/page.jsx # Register form page
+│   ├── auth/                 # Supabase auth pages
+│   │   ├── login/page.jsx
+│   │   └── register/page.jsx
 │   │
-│   ├── dashboard/            # Authenticated main dashboard
-│   │   ├── layout.jsx        # Shared layout for dashboard pages
-│   │   └── page.jsx          # Main interview session launcher
+│   ├── dashboard/            # Entry point after login (choose mode)
+│   │   ├── layout.jsx
+│   │   └── page.jsx
 │   │
 │   ├── session/              # Dynamic session pages
-│      └── [id]/page.jsx     # Multi-turn interview session (chat, code, feedback)
-|
-├── components/               # Reusable UI components
-│   ├── ChatBox.jsx           # Chat UI for user-AI conversation
-│   ├── CodeEditor.jsx        # Embedded code editor
-│   ├── Feedback.jsx          # Final feedback display
-│   ├── QuestionDisplay.jsx   # Displays current question
-│   ├── CreateQuestionModal.jsx # Modal to create a new question
-│   ├── AudioRecorder.jsx     # Audio recording component using MediaStream API
-│   ├── LoadingSpinner.jsx    # Generic loading spinner
-│   └── ErrorMessage.jsx      # Generic error display
+│   │   └── [id]/page.jsx     # Live session: chat, code, question flow, feedback
+│   │
+│   ├── api/                  # Optional: Next.js local route handlers (if needed)
+│
+├── components/               # Reusable UI and logic components
+│   ├── session/              # Interview-specific components
+│   │   ├── ChatBox.jsx
+│   │   ├── CodeEditor.jsx
+│   │   ├── QuestionDisplay.jsx
+│   │   ├── Feedback.jsx
+│   │   └── CreateQuestionModal.jsx
+│   │
+│   ├── shared/               # Generic UI components
+│   │   ├── AudioRecorder.jsx
+│   │   ├── LoadingSpinner.jsx
+│   │   └── ErrorMessage.jsx
 │
 ├── hooks/                    # Custom React hooks
-│   ├── useSession.js         # Manage session state, question progress
-│   ├── useChat.js            # Manages chat messages (user/system turns)
-│   └── useAudioRecorder.js   # Handles MediaStream Recording logic
+│   ├── useSession.js         # Handle session ID, mode, etc.
+│   ├── useChat.js            # Multi-turn conversation logic
+│   └── useAudioRecorder.js   # Audio recording logic
 │
-├── lib/                      # API utility functions and helpers
-│   ├── api.js                # Functions to call FastAPI backend routes
-│   └── supabaseClient.js     # Supabase config & instance
+├── lib/                      # Utility and service functions
+│   ├── api.js                # Calls FastAPI backend
+│   └── supabaseClient.js     # Supabase instance config
 │
-├── styles/                   # Global styles and Tailwind config
+├── constants/                # Static data (question types, enums)
+│   └── questionTypes.js
+│
+├── public/                   # Static assets (logo, icons)
+├── styles/                   # Global CSS & Tailwind config
 │   └── globals.css
 │
-├── public/                   # Static files (logo, icons, etc.)
-│
-├── .env.local                # API keys, Supabase credentials
+├── .env.local                # Supabase, backend URLs
 ├── tailwind.config.js
 ├── postcss.config.js
 ├── package.json
 └── README.md
-
 ```
 
 ---
