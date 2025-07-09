@@ -6,9 +6,16 @@ from app.models.user import UserLogin, UserRegister, UserPublic, Token
 from app.core.security import verify_password, create_access_token
 from app.services import crud
 from app.core.config import settings
-from app.db.session import get_session
+from app.core.db import engine
 
-router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+# Session dependency function
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/register", response_model=UserPublic)
@@ -16,9 +23,9 @@ def register(user_in: UserRegister, session: Session = Depends(get_session)):
     existing_email = crud.get_user_by_email(session, user_in.email)
     existing_username = crud.get_user_by_username(session, user_in.username)
     if existing_username:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    if existing_email:
         raise HTTPException(status_code=400, detail="Username already registered")
+    if existing_email:
+        raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_user(session, user_in)
 
 
@@ -37,5 +44,4 @@ def login(user_in: UserLogin, session: Session = Depends(get_session)):
 
 @router.post("/logout")
 def logout():
-    # Just a placeholder; on frontend, simply delete the JWT from storage
     return {"msg": "Logged out"}

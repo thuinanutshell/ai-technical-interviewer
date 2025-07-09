@@ -8,6 +8,11 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = ["http://localhost:3000"]
     DATABASE_URL: PostgresDsn
     SECRET_KEY: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+
+    # Database initialization settings
+    FIRST_SUPERUSER: str = "admin@example.com"
+    FIRST_SUPERUSER_PASSWORD: str = "changethis"
 
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
@@ -15,9 +20,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
-        extra = (
-            "allow"  # or "ignore" instead of "forbid" if you're not using all env vars
-        )
+        extra = "allow"
 
 
 settings = Settings()
