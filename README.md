@@ -13,6 +13,9 @@ Ava is an AI-powered mock technical interviewer that helps job seekers practice 
 ![Gemini API](https://img.shields.io/badge/Gemini%20API-4285F4?style=for-the-badge&logo=google&logoColor=white)
 ![Railway](https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+![image](https://github.com/user-attachments/assets/04229f23-8891-4632-ab48-dc6a676f8cc2)
+
 ---
 
 ## Table of Contents
@@ -131,8 +134,6 @@ As a result, my final database schema design is shown below, which I believe str
 | **Auth**       | Supabase Auth                        | Simple to set up, good support for email/password and OAuth; tightly integrates with Next.js.|
 | **Database**   | Supabase DB (PostgreSQL)             | Simplify the process of setting up the database|
 | **Deployment** | Railway (backend), Vercel (frontend) | Simple, scalable, CI/CD-friendly.|
-
-![image](https://github.com/user-attachments/assets/04229f23-8891-4632-ab48-dc6a676f8cc2)
 
 ### Backend
 | **Action**                           | **Method**             | **Route**                         | **Description**                                                              |
