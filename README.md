@@ -153,6 +153,50 @@ As a result, my final database schema design is shown below, which I believe str
 | Get a specific question              | `GET`                  | `/questions/{question_id}`        | Fetch one question by ID                                                     |
 | Delete a question                    | `DELETE`               | `/questions/{question_id}`        | Remove a question (admin or owner only)                                      |
 
+```
+backend/
+│
+├── app/                             # Main application package
+│   ├── __init__.py
+│   ├── main.py                      # Entry point for FastAPI app
+│   │
+│   ├── api/                         # API route definitions
+│   │   ├── __init__.py
+│   │   ├── auth.py                  # Routes for login, signup
+│   │   ├── session.py               # Start session, submit answer, get response
+│   │   ├── resume.py                # Upload + parse resume
+│   │   ├── feedback.py              # Final feedback generation
+│   │   └── question.py              # Create, list questions
+│   │
+│   ├── models/                      # Pydantic models for request/response validation
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── session.py
+│   │   ├── resume.py
+│   │   ├── feedback.py
+│   │   └── question.py
+│   │
+│   ├── services/                    # Business logic, Gemini/Whisper wrappers
+│   │   ├── __init__.py
+│   │   ├── whisper.py               # Audio transcription (OpenAI Whisper)
+│   │   ├── gemini.py                # Gemini response generation
+│   │   ├── resume_parser.py         # PDF parsing using PyMuPDF or LlamaIndex
+│   │   └── feedback_generator.py    # Feedback creation logic
+│   │
+│   ├── db/                          # DB access and Supabase client
+│   │   ├── __init__.py
+│   │   ├── supabase.py              # Supabase connection instance
+│   │   └── crud.py                  # Abstractions for DB operations
+│   │
+│   ├── core/                        # Settings, dependencies, utils
+│   │   ├── config.py                # Environment & app configs
+│   │   ├── security.py              # JWT, password hashing (bcrypt)
+│   │   └── dependencies.py          # Shared dependencies
+│
+├── requirements.txt                 # Python dependencies
+├── .env                             # Environment variables
+```
+
 ### Frontend 
 #### Lofi Mockup
 
