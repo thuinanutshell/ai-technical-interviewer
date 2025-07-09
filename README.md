@@ -22,7 +22,7 @@ Ava is an AI-powered mock technical interviewer that helps job seekers practice 
 
 1. [Day 1: User Flow & Research](#day-1-user-flow--research)
 2. [Day 2: Database Design & Pseudocode](#day-2-database-design--pseudocode)
-3. [Day 3: Feature: Audio Transcription & PDF Parsing](#day-3-feature-audio-transcription--pdf-parsing)
+3. [Day 3: Feature: Authentication & Audio Transcription & PDF Parsing](#day-3-feature-authentication--audio-transcription--pdf-parsing)
 4. [Day 4: Feature: AI Conversation & Follow-up Questions](#day-4-feature-ai-conversation--follow-up-questions)
 5. [Day 5: Feature: Analytics (If Time Permits)](#day-5-feature-analytics-if-time-permits)
 6. [Day 6: CI/CD & Deployment](#day-6-cicd--deployment)
@@ -259,7 +259,7 @@ The app has two primary interview modes: **Coding** and **Behavioral**.
 ```
 
 ---
-## Day 3: Feature: Audio Transcription & PDF Parsing
+## Day 3: Feature: Authentication & Audio Transcription & PDF Parsing
 
 - Integrate Whisper (or another model) for transcription
 - Use `pdfplumber`, `PyMuPDF`, or third-party API for resume parsing
