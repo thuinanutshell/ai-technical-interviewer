@@ -177,8 +177,6 @@ The app has two primary interview modes: **Coding** and **Behavioral**.
 │   │
 │   ├── session/              # Dynamic session pages
 │   │   └── [id]/page.jsx     # Live session: chat, code, question flow, feedback
-│   │
-│   ├── api/                  # Optional: Next.js local route handlers (if needed)
 │
 ├── components/               # Reusable UI and logic components
 │   ├── session/              # Interview-specific components
