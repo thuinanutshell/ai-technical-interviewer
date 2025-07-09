@@ -9,26 +9,26 @@ class UserBase(SQLModel):
     username: str = Field(index=True, max_length=255)
 
 
-# DB model
+# DB model that inherits from the base model
 class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
 
 
-# Input for registration
+# Input that the server expects to receive for registration
 class UserRegister(SQLModel):
     email: EmailStr
     username: str
     password: str
 
 
-# Input for login
+# Input that the server expects to receive for login
 class UserLogin(SQLModel):
     email: EmailStr
     password: str
 
 
-# Output for public data
+# Output from the server sent to the client (public data)
 class UserPublic(UserBase):
     id: uuid.UUID
 
