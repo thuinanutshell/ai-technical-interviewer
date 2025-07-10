@@ -11,6 +11,7 @@ class UserBase(SQLModel):
 
 # DB model that inherits from the base model
 class User(UserBase, table=True):
+    __tablename__ = "User"
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
 

@@ -12,8 +12,15 @@ logger = logging.getLogger(__name__)
 
 
 def create_tables() -> None:
-    """Create database tables."""
-    SQLModel.metadata.create_all(engine)
+    """
+    If you already define the tables in Supabase, you don't have to re-create them
+    """
+    try:
+        # This will only create tables that don't exist
+        SQLModel.metadata.create_all(engine)
+        logger.info("Tables created/verified successfully")
+    except Exception as e:
+        logger.info(f"Tables likely already exist: {e}")
 
 
 def main() -> None:
