@@ -260,6 +260,7 @@ The app has two primary interview modes: **Coding** and **Behavioral**.
 
 ---
 ## Day 3: Feature: Authentication
+### Progress
 The structure below shows my progress so far. There are some modifications compared to what I planned yesterday. Because I'm new to FastAPI (I have more experience with Flask), I rely on the [fullstack template provided by FastAPI](https://github.com/fastapi/full-stack-fastapi-template/tree/master/backend) to structure my folder. I made some modifications that meet my needs and level. 
 
 Currently, when tested with SwaggerUI, the registration, login, and logout endpoints work. This is also the first time I used `Pydantic` for data validation. I also successfully connected the backend with the Postgres connector using `Supabase`. For the next steps, I want to modify the config file to set up 3 different environments: `testing`, `development`, and `production`. I'm thinking of using a local database for the testing environment, and one Supabase database for development and one Supabase database for production. 
@@ -273,16 +274,36 @@ I think I underestimated how long it took to write code that I actually understa
   2. For development and production, I currently use one Supabase database, but I plan to create a different one for production
   3. To make things easier to run, I created a folder `scripts` to store different shell scripts for test, dev, and prod, and learned to make the scripts executable by using `chmod +x scripts/*.sh`
 
+### Bugs
+- I encountered a compatibility issue between `passlib` and `bcrypt`, so to resolve the problem, I asked Claude and found out that the newer version of `bcrypt` is not compatible with `passlib`. Then, one solution was to use `argon2`, which is more secure and compatible.
+```python
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
+```
+- I installed `jwt` instead of `PyJWT` for JWT-based auth; the latter is the correct one
+```
+    return jwt.encode(payload, settings.SECRET_KEY, algorithm=ALGORITHM)
+           ^^^^^^^^^^
+AttributeError: module 'jwt' has no attribute 'encode'
+```
+- I put the `tests` folder in the wrong location - the correct one should be inside the root level of the `backend` folder, not in the `app` folder.
+
 🎉 Authentication works!
 
-
 https://github.com/user-attachments/assets/8e0a527a-93a9-40a5-b492-3d4fc856fc73
-
-
 
 ---
 
 ## Day 4: Feature: Audio Transcription & PDF Parsing
+### Planning
+1. Start by creating the backend logic for creating manual questions
+   - Create the frontend component for the create-question modal
+3. Then, continue to create the backend logic for parsing the resume and generating questions from the parsed data
+   - Create the frontend component for uploading a resume
+   - Create the frontend component for displaying generated questions/manual questions
+5. Then, create the backend logic for audio transcription
+   - Create the audio recorder component on the frontend
+### Progress
+### Bugs
 
 ---
 
