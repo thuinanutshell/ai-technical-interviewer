@@ -267,58 +267,18 @@ Currently, when tested with SwaggerUI, the registration, login, and logout endpo
 I think I underestimated how long it took to write code that I actually understand. This took me around 3 hours to write code, read the code template to understand what's going on, and think about how to structure the code best to make it functional yet focused and simple. Here's what I've learned today:
 - When defining Pydantic models, I need to define the input that the server is expected to receive from the client and the output that is sent from the server to the client
 - Before running the app, we need a file to initialize/populate the database (create all tables), and this file should be separate instead of being put inside the main file to avoid the database being recreated every time at app startup.
-```
-backend/
-│
-├── app/                             # Main application package
-│   ├── __init__.py
-│   ├── main.py                      # Entry point for FastAPI app
-│   │
-│   ├── api/                         # API route definitions
-│   |   ├── routes/                  # API route definitions
-│   |      ├── __init__.py                  
-│   |      ├── auth.py               # auth-related routes definitions
-│   │   ├── __init__.py
-│   │   ├── deps.py                  # dependencies
-│   │   ├── main.py                  # all routes
-│   │
-│   ├── models/                      # Pydantic models for request/response validation
-│   │   ├── __init__.py
-│   │   ├── user.py
-│   │
-│   ├── services/                    # Business logic
-│   │   ├── __init__.py
-│   │   ├── crud.py                  # create and get user
-│   │
-│   ├── core/                        # Settings, dependencies, utils
-│   │   ├── config.py                # Environment & app configs
-│   │   ├── security.py              # JWT, password hashing (bcrypt)
-│   │   └── db.py                    
-│
-├── requirements.txt                 # Python dependencies
-├── .env                             # Environment variables
-```
-
+- One more thing to take into consideration, if you use Supabase and have already defined the tables before coding, make sure not to recreate them one more time when starting the app.
+- I've done with the part to set up different environments for testing, dev, and prod:
+  1. For testing, I just use an in-memory database to run the test using `pytest`
+  2. For development and production, I currently use one Supabase database, but I plan to create a different one for production
+  3. To make things easier to run, I created a folder `scripts` to store different shell scripts for test, dev, and prod, and learned to make the scripts executable by using `chmod +x scripts/*.sh`
 ---
 
 ## Day 4: Feature: Audio Transcription & PDF Parsing
 
-- Use OpenAI/Gemma with structured prompts
-- Memory chain to store context (e.g., LangChain)
-- Rule-based or confidence-threshold triggers for follow-up
-
-### Demo
-### Tests
-
 ---
 
 ## Day 5: AI Conversation
-
-- Track completion, AI ratings, time per question, weak areas
-- Visualize via simple dashboard (e.g., Recharts or Chart.js)
-
-### Demo
-### Tests
 
 ---
 
