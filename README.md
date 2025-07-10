@@ -272,6 +272,14 @@ I think I underestimated how long it took to write code that I actually understa
   1. For testing, I just use an in-memory database to run the test using `pytest`
   2. For development and production, I currently use one Supabase database, but I plan to create a different one for production
   3. To make things easier to run, I created a folder `scripts` to store different shell scripts for test, dev, and prod, and learned to make the scripts executable by using `chmod +x scripts/*.sh`
+
+🎉 Authentication works!
+
+
+https://github.com/user-attachments/assets/8e0a527a-93a9-40a5-b492-3d4fc856fc73
+
+
+
 ---
 
 ## Day 4: Feature: Audio Transcription & PDF Parsing
