@@ -302,21 +302,48 @@ https://github.com/user-attachments/assets/8e0a527a-93a9-40a5-b492-3d4fc856fc73
    - Create the frontend component for displaying generated questions/manual questions
 5. Then, create the backend logic for audio transcription
    - Create the audio recorder component on the frontend
+     
 ### Progress
+I've done with the logic to parse the resume data. We can actually use `PyMuPDF4LLM` to parse the PDF text into markdown. This is a specific library built for parsing PDF into input used for different LLMs. Basically, the function takes the uploaded resume input as raw bytes. 
+- `tempfile.NamedTemporaryFile(...)` creates a temporary file on disk that will be deleted after the `with` block and has a `.pdf` suffix so pymupdf4llm recognizes it as a PDF.
+- `tmp.write(file_bytes)` writes the raw bytes into the temporary PDF file.
+- `tmp.flush()` ensures that all data is written from the buffer to disk, so it’s ready for reading by other processes.
+- Using `strip()` to return the cleaned-up (stripped of leading/trailing whitespace) Markdown string.
+  
+```python
+def parse_resume_to_markdown(file_bytes: bytes) -> str:
+    """Write PDF to a temp file and extract markdown using pymupdf4llm."""
+    try:
+        with tempfile.NamedTemporaryFile(delete=True, suffix=".pdf") as tmp:
+            tmp.write(file_bytes)
+            tmp.flush()
+
+            # Parse the file into markdown!
+            markdown = pymupdf4llm.to_markdown(tmp.name)
+            if not markdown or not markdown.strip():
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail="Could not extract text from PDF. The file may be corrupted or contain only images.",
+                )
+
+        return markdown.strip()
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to parse PDF: {str(e)}",
+        )
+```
 ### Bugs
 
 ---
 
 ## Day 5: AI Conversation
+Wow, this one is much harder and more confusing than I thought. 
 
 ---
 
 ## Day 6: CI/CD & Deployment
-
-- GitHub Actions for test + lint checks
-- Deploy backend (Railway)
-- Deploy frontend (Vercel)
-- Use `.env` for secrets + environment configs
 
 ---
 
