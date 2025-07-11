@@ -334,12 +334,11 @@ def parse_resume_to_markdown(file_bytes: bytes) -> str:
             detail=f"Failed to parse PDF: {str(e)}",
         )
 ```
-### Bugs
 
 ---
 
 ## Day 5: AI Conversation
-Wow, this one is much harder and more confusing than I thought. 
+Wow, this one is much harder and more confusing than I thought. I used open-source Whisper model for audio transcription and Gemini API to respond to user's answers.
 
 ---
 
