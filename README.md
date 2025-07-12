@@ -260,6 +260,7 @@ The app has two primary interview modes: **Coding** and **Behavioral**.
 
 ---
 ## Day 3: Feature: Authentication
+### Progress
 The structure below shows my progress so far. There are some modifications compared to what I planned yesterday. Because I'm new to FastAPI (I have more experience with Flask), I rely on the [fullstack template provided by FastAPI](https://github.com/fastapi/full-stack-fastapi-template/tree/master/backend) to structure my folder. I made some modifications that meet my needs and level. 
 
 Currently, when tested with SwaggerUI, the registration, login, and logout endpoints work. This is also the first time I used `Pydantic` for data validation. I also successfully connected the backend with the Postgres connector using `Supabase`. For the next steps, I want to modify the config file to set up 3 different environments: `testing`, `development`, and `production`. I'm thinking of using a local database for the testing environment, and one Supabase database for development and one Supabase database for production. 
@@ -273,29 +274,75 @@ I think I underestimated how long it took to write code that I actually understa
   2. For development and production, I currently use one Supabase database, but I plan to create a different one for production
   3. To make things easier to run, I created a folder `scripts` to store different shell scripts for test, dev, and prod, and learned to make the scripts executable by using `chmod +x scripts/*.sh`
 
+### Bugs
+- I encountered a compatibility issue between `passlib` and `bcrypt`, so to resolve the problem, I asked Claude and found out that the newer version of `bcrypt` is not compatible with `passlib`. Then, one solution was to use `argon2`, which is more secure and compatible.
+```python
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
+```
+- I installed `jwt` instead of `PyJWT` for JWT-based auth; the latter is the correct one
+```
+    return jwt.encode(payload, settings.SECRET_KEY, algorithm=ALGORITHM)
+           ^^^^^^^^^^
+AttributeError: module 'jwt' has no attribute 'encode'
+```
+- I put the `tests` folder in the wrong location - the correct one should be inside the root level of the `backend` folder, not in the `app` folder.
+
 🎉 Authentication works!
 
-
 https://github.com/user-attachments/assets/8e0a527a-93a9-40a5-b492-3d4fc856fc73
-
-
 
 ---
 
 ## Day 4: Feature: Audio Transcription & PDF Parsing
+### Planning
+1. Start by creating the backend logic for creating manual questions
+   - Create the frontend component for the create-question modal
+3. Then, continue to create the backend logic for parsing the resume and generating questions from the parsed data
+   - Create the frontend component for uploading a resume
+   - Create the frontend component for displaying generated questions/manual questions
+5. Then, create the backend logic for audio transcription
+   - Create the audio recorder component on the frontend
+     
+### Progress
+I've done with the logic to parse the resume data. We can actually use `PyMuPDF4LLM` to parse the PDF text into markdown. This is a specific library built for parsing PDF into input used for different LLMs. Basically, the function takes the uploaded resume input as raw bytes. 
+- `tempfile.NamedTemporaryFile(...)` creates a temporary file on disk that will be deleted after the `with` block and has a `.pdf` suffix so pymupdf4llm recognizes it as a PDF.
+- `tmp.write(file_bytes)` writes the raw bytes into the temporary PDF file.
+- `tmp.flush()` ensures that all data is written from the buffer to disk, so it’s ready for reading by other processes.
+- Using `strip()` to return the cleaned-up (stripped of leading/trailing whitespace) Markdown string.
+  
+```python
+def parse_resume_to_markdown(file_bytes: bytes) -> str:
+    """Write PDF to a temp file and extract markdown using pymupdf4llm."""
+    try:
+        with tempfile.NamedTemporaryFile(delete=True, suffix=".pdf") as tmp:
+            tmp.write(file_bytes)
+            tmp.flush()
+
+            # Parse the file into markdown!
+            markdown = pymupdf4llm.to_markdown(tmp.name)
+            if not markdown or not markdown.strip():
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail="Could not extract text from PDF. The file may be corrupted or contain only images.",
+                )
+
+        return markdown.strip()
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to parse PDF: {str(e)}",
+        )
+```
 
 ---
 
 ## Day 5: AI Conversation
+Wow, this one is much harder and more confusing than I thought. I used open-source Whisper model for audio transcription and Gemini API to respond to user's answers.
 
 ---
 
 ## Day 6: CI/CD & Deployment
-
-- GitHub Actions for test + lint checks
-- Deploy backend (Railway)
-- Deploy frontend (Vercel)
-- Use `.env` for secrets + environment configs
 
 ---
 
