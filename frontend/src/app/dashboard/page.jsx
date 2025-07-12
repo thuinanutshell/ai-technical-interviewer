@@ -1,12 +1,16 @@
 'use client';
 
+import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useAuth } from '../../hooks/useAuth';
+import { useEffect, useState } from 'react';
+import BehavioralModal from '../../components/BehavioralModal';
+import CodingModal from '../../components/CodingModal';
 
 export default function DashboardPage() {
   const { user, logout, loading, isAuthenticated } = useAuth();
   const router = useRouter();
+  const [showBehavioralModal, setShowBehavioralModal] = useState(false);
+  const [showCodingModal, setShowCodingModal] = useState(false);
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
@@ -23,7 +27,7 @@ export default function DashboardPage() {
   }
 
   if (!isAuthenticated) {
-    return null; // Will redirect
+    return null;
   }
 
   return (
@@ -48,40 +52,49 @@ export default function DashboardPage() {
         <div className="px-4 py-6 sm:px-0">
           <div className="border-4 border-dashed border-gray-200 rounded-lg p-8">
             <div className="text-center">
-              
-              {/* Placeholder for future features */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Coding Interview Button */}
                 <div className="bg-white p-6 rounded-lg shadow">
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    Start Interview
-                  </h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Coding Interview</h3>
                   <p className="text-gray-600">
-                    Begin a new technical interview session
+                    Manually create and solve technical coding problems using UMPIRE.
                   </p>
+                  <button
+                    onClick={() => setShowCodingModal(true)}
+                    className="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                  >
+                    Start Coding Interview
+                  </button>
                 </div>
-                
+
+                {/* Behavioral Interview Button */}
                 <div className="bg-white p-6 rounded-lg shadow">
                   <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    Upload Resume
+                    Behavioral Interview
                   </h3>
                   <p className="text-gray-600">
-                    Upload your resume for personalized questions
+                    Upload your resume and let AI generate behavioral questions.
                   </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-lg shadow">
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    View History
-                  </h3>
-                  <p className="text-gray-600">
-                    Review your previous interview sessions
-                  </p>
+                  <button
+                    onClick={() => setShowBehavioralModal(true)}
+                    className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                  >
+                    Start Behavioral Interview
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modal Section */}
+      {showBehavioralModal && (
+        <BehavioralModal onClose={() => setShowBehavioralModal(false)} />
+      )}
+      {showCodingModal && (
+        <CodingModal onClose={() => setShowCodingModal(false)} />
+      )}
     </div>
   );
 }
